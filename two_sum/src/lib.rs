@@ -25,17 +25,31 @@
 // Constraints:
 //
 // * 2 <= nums.length <= 10^4
-// * -10^9 <= nums[1[ <= 10^9
+// * -10^9 <= nums[1] <= 10^9
 // * -10^9 <= target <= 10^9
 // * Only one valid answer exists.
 //
-// Follow-up: Can yo ucome up with an algorithm that is less than O(n^2) time complexity?
+// Follow-up: Can you come up with an algorithm that is less than O(n^2) time complexity?
 //
+
+use std::collections::HashMap;
+
 struct Solution {}
 
 impl Solution {
-    pub fn two_sum(_nums: Vec<i32>, _target: i32) -> Vec<i32> {
-        [0, 1].to_vec()
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut m: std::collections::HashMap<i32, i32> = HashMap::new();
+
+        for (i, v) in nums.iter().enumerate() {
+            let c = target - v;
+            if m.contains_key(&c) {
+                if let Some(v) = m.get(&c) {
+                    return [*v, i.try_into().unwrap()].to_vec();
+                }
+            }
+            m.insert(*v, i.try_into().unwrap());
+        }
+        vec![]
     }
 }
 
