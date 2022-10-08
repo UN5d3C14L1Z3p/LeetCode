@@ -49,5 +49,8 @@ mod tests {
             Solution::two_sum([2, 7, 11, 15].to_vec(), 9),
             [0, 1].to_vec()
         );
+
+        assert_eq!(Solution::two_sum([3, 2, 4].to_vec(), 6), [1, 2].to_vec());
+        assert_eq!(Solution::two_sum([3, 3].to_vec(), 6), [0, 1].to_vec());
     }
 }
