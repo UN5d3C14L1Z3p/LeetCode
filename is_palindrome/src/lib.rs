@@ -31,8 +31,13 @@
 struct Solution {}
 
 impl Solution {
-    pub fn is_palindrome(_x: i32) -> bool {
-        true
+    fn reverse(_x: i32) -> i32 {
+        121
+    }
+
+    pub fn is_palindrome(x: i32) -> bool {
+        let reverse = Self::reverse(x);
+        x == reverse
     }
 }
 
