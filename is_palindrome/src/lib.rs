@@ -31,13 +31,24 @@
 struct Solution {}
 
 impl Solution {
-    fn reverse(_x: i32) -> i32 {
-        121
+    fn reverse(x: i32) -> i32 {
+        let mut n = x;
+        let mut reversed = 0;
+
+        while n != 0 {
+            reversed = reversed * 10 + n % 10;
+            n /= 10;
+        }
+
+        reversed
     }
 
     pub fn is_palindrome(x: i32) -> bool {
-        let reverse = Self::reverse(x);
-        x == reverse
+        if x < 0 {
+            false
+        } else {
+            x == Self::reverse(x)
+        }
     }
 }
 
@@ -48,7 +59,7 @@ mod tests {
     #[test]
     fn test_is_palindrome() {
         assert!(Solution::is_palindrome(121));
-        //assert!(is_palindrome(-121) == false);
-        //assert!(is_palindrome(10_ == false);
+        assert!(!Solution::is_palindrome(-121));
+        assert!(!Solution::is_palindrome(10));
     }
 }
