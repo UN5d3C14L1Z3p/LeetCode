@@ -49,12 +49,56 @@ struct Solution {}
 
 impl Solution {
     pub fn roman_to_int(s: String) -> i32 {
-        match s.as_str() {
-            "III" => 3,
-            "LVIII" => 58,
-            "MCMXCIV" => 1994,
-            &_ => todo!(),
+        let mut n = 0;
+        for (i, v) in s.chars().enumerate() {
+            n += match v {
+                'I' => 1,
+                'V' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'I' {
+                        3
+                    } else {
+                        5
+                    }
+                }
+                'X' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'I' {
+                        8
+                    } else {
+                        10
+                    }
+                }
+                'L' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'X' {
+                        30
+                    } else {
+                        50
+                    }
+                }
+                'C' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'X' {
+                        80
+                    } else {
+                        100
+                    }
+                }
+                'D' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'C' {
+                        300
+                    } else {
+                        500
+                    }
+                }
+                'M' => {
+                    if i > 0 && s.as_bytes()[i - 1] as char == 'C' {
+                        800
+                    } else {
+                        1000
+                    }
+                }
+                _ => todo!(),
+            }
         }
+        n
     }
 }
 
