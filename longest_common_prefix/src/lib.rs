@@ -24,8 +24,34 @@
 
 struct Solution {}
 impl Solution {
-    pub fn longest_common_prefix(_strs: Vec<String>) -> String {
-        "fl".to_string()
+    pub fn longest_common_prefix(strs: Vec<String>) -> String {
+        let mut s = String::from("");
+
+        match strs.len() {
+            1 => strs[0].clone(),
+            2..=200 => {
+                for (old, new) in strs[0].chars().zip(strs[1].chars().peekable()) {
+                    if old == new {
+                        s.push(old);
+                    }
+                }
+
+                let mut i = 2;
+                while i < strs.len() {
+                    let t = s.clone();
+                    s.clear();
+                    for (old, new) in t.chars().zip(strs[i].chars().peekable()) {
+                        if old == new {
+                            s.push(old);
+                        }
+                    }
+                    i += 1;
+                }
+
+                s
+            }
+            _ => todo!(),
+        }
     }
 }
 
