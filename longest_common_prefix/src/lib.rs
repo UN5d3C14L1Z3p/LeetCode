@@ -30,9 +30,11 @@ impl Solution {
         match strs.len() {
             1 => strs[0].clone(),
             2..=200 => {
-                for (old, new) in strs[0].chars().zip(strs[1].chars().peekable()) {
+                for (old, new) in strs[0].chars().zip(strs[1].chars()) {
                     if old == new {
                         s.push(old);
+                    } else {
+                        break;
                     }
                 }
 
@@ -40,9 +42,11 @@ impl Solution {
                 while i < strs.len() {
                     let t = s.clone();
                     s.clear();
-                    for (old, new) in t.chars().zip(strs[i].chars().peekable()) {
+                    for (old, new) in t.chars().zip(strs[i].chars()) {
                         if old == new {
                             s.push(old);
+                        } else {
+                            break;
                         }
                     }
                     i += 1;
@@ -78,6 +82,10 @@ mod tests {
                     .collect()
             ),
             "".to_string()
+        );
+        assert_eq!(
+            Solution::longest_common_prefix(["cir", "car"].iter().map(|x| x.to_string()).collect()),
+            "c".to_string()
         );
     }
 }
