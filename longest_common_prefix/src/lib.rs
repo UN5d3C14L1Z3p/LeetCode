@@ -25,49 +25,15 @@
 struct Solution {}
 impl Solution {
     pub fn longest_common_prefix(strs: Vec<String>) -> String {
-        match strs.len() {
-            1 => strs[0].clone(),
-            2 => {
-                let mut s = String::from("");
-
-                for (old, new) in strs[0].chars().zip(strs[1].chars()) {
-                    if old == new {
-                        s.push(old);
-                    } else {
-                        break;
-                    }
-                }
-
-                s
-            }
-            3..=200 => {
-                let mut s = String::from("");
-
-                for (old, new) in strs[0].chars().zip(strs[1].chars()) {
-                    if old == new {
-                        s.push(old);
-                    } else {
-                        break;
-                    }
-                }
-
-                let mut i = 2;
-                while i < strs.len() {
-                    let t = s.clone();
-                    s.clear();
-                    for (old, new) in t.chars().zip(strs[i].chars()) {
-                        if old == new {
-                            s.push(old);
-                        } else {
-                            break;
-                        }
-                    }
-                    i += 1;
-                }
-
-                s
-            }
-            _ => todo!(),
+        match strs.is_empty() {
+            true => "".to_string(),
+            _ => strs.iter().skip(1).fold(strs[0].clone(), |acc, x| {
+                acc.chars()
+                    .zip(x.chars())
+                    .take_while(|(x, y)| x == y)
+                    .map(|(x, _)| x)
+                    .collect()
+            }),
         }
     }
 }
