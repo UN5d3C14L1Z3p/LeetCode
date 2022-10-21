@@ -31,11 +31,29 @@
 // * 1 <= s.length <= 10^4
 // * s consists of parentheses only '()[]{}'.
 //
+use std::collections::HashMap;
+
 struct Solution {}
 
 impl Solution {
     pub fn is_valid(s: String) -> bool {
-        s.is_empty()
+        let mut t = String::from("");
+        let m = HashMap::from([('(', ')'), ('[', ']'), ('{', '}')]);
+
+        for k in s.chars() {
+            if k != ')' && k != ']' && k != '}' {
+                t.push(k);
+            } else if !t.is_empty() {
+                if let Some(c) = t.pop() {
+                    if let Some(&v) = m.get(&c) {
+                        if k != v {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        true
     }
 }
 
