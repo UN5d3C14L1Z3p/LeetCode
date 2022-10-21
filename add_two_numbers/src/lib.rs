@@ -59,8 +59,29 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    
+    use super::*;
 
     #[test]
-    fn test_add_two_numbers() {}
+    fn test_add_two_numbers() {
+        let l1 = Some(Box::new(ListNode {
+            val: 2,
+            next: Some(Box::new(ListNode {
+                val: 4,
+                next: Some(Box::new(ListNode::new(3))),
+            })),
+        }));
+
+        let l2 = Some(Box::new(ListNode {
+            val: 5,
+            next: Some(Box::new(ListNode {
+                val: 6,
+                next: Some(Box::new(ListNode::new(4))),
+            })),
+        }));
+
+        assert_eq!(
+            Solution::add_two_numbers(l1, l2),
+            Some(Box::new(ListNode::new(1)))
+        );
+    }
 }
