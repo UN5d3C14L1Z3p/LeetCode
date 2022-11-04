@@ -25,28 +25,11 @@
 /// * nums contains distinct values sorted in ascending order.
 /// * -10^4 <= target <= 10^4
 ///
-use std::cmp::Ordering;
-
 struct Solution {}
 
 impl Solution {
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
-        let middle = nums.len() / 2;
-        if let Some(&e) = nums.get(middle) {
-            match target.cmp(&e) {
-                Ordering::Greater => {
-                    // return Self::search_insert(nums.as_slice()[..middle].to_vec(), target);
-                    1
-                }
-                Ordering::Less => {
-                    // return Self::search_insert(nums.as_slice()[middle..].to_vec(), target);
-                    2
-                }
-                Ordering::Equal => middle.try_into().unwrap(),
-            }
-        } else {
-            0
-        }
+        nums.binary_search(&target).unwrap_or_else(|x| x) as i32
     }
 }
 
@@ -56,8 +39,15 @@ mod tests {
 
     #[test]
     fn test_search_insert() {
+        // 'equal to middle' test
         assert_eq!(Solution::search_insert(vec![1, 3, 5, 6], 5), 2);
+        // 'less than middle' test
         assert_eq!(Solution::search_insert(vec![1, 3, 5, 6], 2), 1);
-        assert_eq!(Solution::search_insert(vec![1, 3, 5, 6], 7), 7);
+        // 'where it would be if it were inserted in order' test
+        // - greater than given set of elements
+        assert_eq!(Solution::search_insert(vec![1, 3, 5, 6], 7), 4);
+        // 'where it would be if it were inserted in order' test
+        // - less than give set of elements
+        assert_eq!(Solution::search_insert(vec![1, 3, 5, 6], 0), 0);
     }
 }
