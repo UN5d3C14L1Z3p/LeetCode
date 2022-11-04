@@ -25,15 +25,27 @@
 /// * nums contains distinct values sorted in ascending order.
 /// * -10^4 <= target <= 10^4
 ///
+use std::cmp::Ordering;
+
 struct Solution {}
 
 impl Solution {
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
-        // dummy code for compilation check
-        if target < nums.len() as i32 {
-            target
+        let middle = nums.len() / 2;
+        if let Some(&e) = nums.get(middle) {
+            match target.cmp(&e) {
+                Ordering::Greater => {
+                    // return Self::search_insert(nums.as_slice()[..middle].to_vec(), target);
+                    1
+                }
+                Ordering::Less => {
+                    // return Self::search_insert(nums.as_slice()[middle..].to_vec(), target);
+                    2
+                }
+                Ordering::Equal => middle.try_into().unwrap(),
+            }
         } else {
-            nums.len() as i32
+            0
         }
     }
 }
