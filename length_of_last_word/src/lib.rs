@@ -31,7 +31,10 @@
 struct Solution {}
 impl Solution {
     pub fn length_of_last_word(s: String) -> i32 {
-        s.len() as i32
+        match s.trim().split(' ').collect::<Vec<_>>().last() {
+            Some(s) => s.len() as i32,
+            _ => 0,
+        }
     }
 }
 
